@@ -1,0 +1,148 @@
+package cafe;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class cafe {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		  Scanner scan = new Scanner(System.in);
+		  
+		  List<Menu> menu = new ArrayList<>();
+		  
+		  System.out.println("How many items do you want to add?");
+		  int num=scan.nextInt();
+		  scan.nextLine();
+		  
+		  for (int i = 0; i < num; i++) 
+		  {
+			  Menu menuInput = new Menu();
+			  menuInput.accept(scan);
+			  menu.add(menuInput);
+		  }
+		  
+		  int y;
+		  
+		  do 
+		  {
+			  System.out.println("Menu:\n1. Display Menu\n2. Search Items\n3. Buy Items\n4. Nutritional Information of item");
+			  int choice = scan.nextInt();
+			  scan.nextLine();
+			  
+			  switch (choice) 
+			  {
+			  
+			  case 1: //Display Menu
+				  for (Menu m : menu) 
+				  {
+					  m.display();
+				  }
+				  break;
+				  
+			  case 2: //Search Items
+				  System.out.println("Search by:\n1. Item Name\n2. Price");
+				  int searchChoice = scan.nextInt();
+				  scan.nextLine();
+				  
+				  switch (searchChoice) 
+				  {
+				  
+				  case 1: //search by name
+					  System.out.println("Enter Item Name:");
+					  String itemName = scan.nextLine();
+					  for (Menu item : menu) 
+					  {
+						  if (item.getItemName().equalsIgnoreCase(itemName)) 
+						  {
+							  item.display();
+						  }
+					  }
+					  
+					  break;
+					  
+				  case 2: //search by price
+					  System.out.println("Enter price:");
+					  int price = scan.nextInt();
+					  
+					  for (Menu item : menu) 
+					  {
+						  if (item.getprice() == price) 
+						  {
+							  item.display();
+	                      }
+	                   }
+					  
+					  break;
+					  
+				  default:
+					  System.out.println("Invalid Choice!");
+	              }
+	                    break;
+	               
+			  
+			  case 3: //Buy items
+	                   
+	                    break;
+	                    
+			  case 4://Nutritional Information
+	                   break;
+	                   
+			  default:
+				  System.out.println("Invalid Choice!");
+			  }
+			  
+			  System.out.println("Do you wish to continue? (1 for Yes, 2 for No)");
+			  y = scan.nextInt();
+	        } while (y == 1);
+		  
+		  System.out.println("Thank you for visiting!");
+		  scan.close();
+		  
+	}
+	
+}
+
+class Menu 
+{
+	String itemName;
+	int price,number;
+	
+	void accept(Scanner sc) 
+	{
+		System.out.println("\nEnter Item Name:");
+		itemName = sc.nextLine();
+		
+		System.out.print("Enter Price: ");
+		price = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.print("Enter Available Amount: ");
+		number = sc.nextInt();
+		sc.nextLine();
+		
+	}
+	
+	void display() 
+	{
+		System.out.println("\nItem Name: " + itemName);
+		System.out.println("Price: " + price);
+		System.out.println("Availablity: " + number);
+		
+	}
+	
+	String getItemName() 
+	{
+		return itemName;
+		
+	}
+	
+	int getprice() 
+	{
+		return price;
+		
+	}
+	
+}
+
+
+	       
