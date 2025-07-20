@@ -1,36 +1,38 @@
 package cafe;
 
 import java.util.ArrayList;
-
 import java.util.List;
-
 import java.util.Scanner;
 
+// Abstract class representing a menu item
 abstract class Menu {
     protected String itemName;
     protected double price;
-    protected int number;
+    protected int number; // Quantity/availability of item
     protected String nutrition;
 
+    // Constructor
     public Menu(String itemName, double price, int number, String nutrition) {
         this.itemName = itemName;
         this.price = price;
         this.number = number;
         this.nutrition = nutrition;
-        
-       
-    }
-    
-    String getItemName() {
-    	return itemName;
-    }
-    
-    double getPrice() {
-    	return price;
     }
 
+    // Getter for item name
+    String getItemName() {
+        return itemName;
+    }
+
+    // Getter for item price
+    double getPrice() {
+        return price;
+    }
+
+    // Abstract method to get item type (Food or Beverage)
     abstract String getItemType();
-    
+
+    // Display item details
     public void display() {
         System.out.println("\nItem Name: " + itemName);
         System.out.println("Type: " + getItemType());
@@ -38,197 +40,156 @@ abstract class Menu {
         System.out.println("Availability: " + number);
     }
 }
-    
-    class Beverage extends Menu {
-        public Beverage(String itemName, double price, int number, String nutrition) {
-            super(itemName, price, number, nutrition);
-        }
 
-        @Override
-        String getItemType() {
-            return "Beverage";
-        }
+// Subclass for Beverages
+class Beverage extends Menu {
+    public Beverage(String itemName, double price, int number, String nutrition) {
+        super(itemName, price, number, nutrition);
     }
 
-    class Food extends Menu {
-        public Food(String itemName, double price, int number, String nutrition) {
-            super(itemName, price, number, nutrition);
-        }
+    @Override
+    String getItemType() {
+        return "Beverage";
+    }
+}
 
-        @Override
-        String getItemType() {
-            return "Food";
-        }
+// Subclass for Food
+class Food extends Menu {
+    public Food(String itemName, double price, int number, String nutrition) {
+        super(itemName, price, number, nutrition);
     }
 
+    @Override
+    String getItemType() {
+        return "Food";
+    }
+}
+
+// Main class
 public class cafe {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		// TODO Auto-generated method stub
+        // Create Scanner for user input
+        Scanner scan = new Scanner(System.in);
 
-		  
+        // List to store menu items
+        List<Menu> menu = new ArrayList<>();
 
-		  Scanner scan = new Scanner(System.in);
+        // Initialize menu with food and beverage items
+        menu.add(new Beverage("Espresso", 3.0, 10, "Calories: 5, Protein: 0g, Carbs: 1g"));
+        menu.add(new Beverage("Cappuccino", 4.0, 8, "Calories: 120, Protein: 6g, Carbs: 10g"));
+        menu.add(new Beverage("Latte", 4.0, 12, "Calories: 180, Protein: 8g, Carbs: 12g"));
+        menu.add(new Beverage("Iced Coffee", 4.0, 9, "Calories: 100, Protein: 3g, Carbs: 15g"));
+        menu.add(new Food("Croissant", 3.0, 15, "Calories: 230, Protein: 5g, Carbs: 28g"));
+        menu.add(new Food("Muffin", 3.0, 10, "Calories: 350, Protein: 6g, Carbs: 45g"));
+        menu.add(new Food("Sandwich", 5.0, 7, "Calories: 400, Protein: 15g, Carbs: 35g"));
+        menu.add(new Food("Cheesecake", 6.0, 5, "Calories: 450, Protein: 8g, Carbs: 40g"));
 
-	        List<Menu> menu = new ArrayList<>();
+        int y; // Choice to continue the loop
 
-	        // Initialize menu
-	        menu.add(new Beverage("Espresso", 3.0, 10, "Calories: 5, Protein: 0g, Carbs: 1g"));
-	        menu.add(new Beverage("Cappuccino", 4.0, 8, "Calories: 120, Protein: 6g, Carbs: 10g"));
-	        menu.add(new Beverage("Latte", 4.0, 12, "Calories: 180, Protein: 8g, Carbs: 12g"));
-	        menu.add(new Beverage("Iced Coffee", 4.0, 9, "Calories: 100, Protein: 3g, Carbs: 15g"));
-	        menu.add(new Food("Croissant", 3.0, 15, "Calories: 230, Protein: 5g, Carbs: 28g"));
-	        menu.add(new Food("Muffin", 3.0, 10, "Calories: 350, Protein: 6g, Carbs: 45g"));
-	        menu.add(new Food("Sandwich", 5.0, 7, "Calories: 400, Protein: 15g, Carbs: 35g"));
-	        menu.add(new Food("Cheesecake", 6.0, 5, "Calories: 450, Protein: 8g, Carbs: 40g"));
+        // Menu loop
+        do {
+            // Display main menu options
+            System.out.println("Menu:\n1. Display Menu\n2. Search Items\n3. Buy Items\n4. Nutritional Information of item \n5. Generate Receipt \n6. Sort Menu \n7.Exit");
 
-		  
+            int choice = scan.nextInt();
+            scan.nextLine(); // Clear input buffer
 
-		  int y;
+            switch (choice) {
 
-		  
+                case 1: // Display full menu
+                    for (Menu m : menu) {
+                        m.display();
+                    }
+                    break;
 
-		  do 
+                case 2: // Search items
+                    System.out.println("Search by:\n1. Item Name\n2. Price");
 
-		  {
+                    int searchChoice = scan.nextInt();
+                    scan.nextLine(); // Clear input buffer
 
-			  System.out.println("Menu:\n1. Display Menu\n2. Search Items\n3. Buy Items\n4. Nutritional Information of item \n5. Generate Receipt \n6. Sort Menu \n7.Exit");
+                    switch (searchChoice) {
 
-			  int choice = scan.nextInt();
+                        case 1: // Search by item name
+                            System.out.println("Enter Item Name:");
+                            String itemName = scan.nextLine();
+                            int found = 0;
 
-			  scan.nextLine();
+                            for (int i = 0; i < menu.size(); i++) {
+                                if (menu.get(i).getItemName().equalsIgnoreCase(itemName)) {
+                                    menu.get(i).display();
+                                    found = 1;
+                                }
+                            }
 
-			  
+                            if (found == 0) {
+                                System.out.println("Item '" + itemName + "' not found!");
+                            }
 
-			  switch (choice) 
+                            break;
 
-			  {
+                        case 2: // Search by price
+                            System.out.println("Enter Price:");
 
-			  
+                            if (scan.hasNextDouble()) {
+                                double price = scan.nextDouble();
+                                scan.nextLine(); // Clear buffer
 
-			  case 1: //Display Menu
+                                found = 0;
+                                for (int i = 0; i < menu.size(); i++) {
+                                    if (menu.get(i).getPrice() == price) {
+                                        menu.get(i).display();
+                                        found = 1;
+                                    }
+                                }
 
-				  for (Menu m : menu) 
+                                if (found == 0) {
+                                    System.out.println("No items found at price $" + price + "!");
+                                }
+                            }
+                            break;
 
-				  {
+                        default:
+                            System.out.println("Invalid Choice!");
+                            break;
+                    }
 
-					  m.display();
+                    break;
 
-				  }
+                case 3: // Buy Items (not implemented yet)
+                    break;
 
-				  break;
+                case 4: // Nutritional Information (not implemented yet)
+                    break;
 
-				  
+                case 5: // Generate Receipt (not implemented yet)
+                    break;
 
-			  case 2: //Search Items
+                case 6: // Sort Menu (not implemented yet)
+                    break;
 
-				  System.out.println("Search by:\n1. Item Name\n2. Price");
+                case 7: // Exit program
+                    System.out.println("Thank you for visiting!");
+                    break;
 
-				  int searchChoice = scan.nextInt();
+                default:
+                    System.out.println("Invalid Choice!");
+            }
 
-				  scan.nextLine();
+            // Ask user if they want to continue
+            System.out.println("Do you wish to continue? (1 for Yes, 2 for No)");
+            y = scan.nextInt();
 
-				  
+        } while (y == 1); // Loop until user chooses to exit
 
-				  switch (searchChoice) 
+        // Program end
+        System.out.println("Thank you for visiting!");
+        scan.close();
+    }
+}
 
-				  {
-
-				  
-
-				  case 1: //search by name
-
-					  System.out.println("Enter Item Name:");
-				        String itemName = scan.nextLine();
-				        int found = 0;
-
-				        for (int i = 0; i < menu.size(); i++) {
-				            if (menu.get(i).getItemName().equalsIgnoreCase(itemName)) {
-				                menu.get(i).display();
-				                found = 1;
-				            }
-				        }
-
-				        if (found == 0) {
-				            System.out.println("Item '" + itemName + "' not found!");
-				        }
-
-				    
-					  break;
-
-					  
-
-				  case 2: //search by price
-
-					  System.out.println("Enter Price:");
-				        if (scan.hasNextDouble()) {
-				            double price = scan.nextDouble();
-				            scan.nextLine();
-
-				            found = 0;
-				            for (int i = 0; i < menu.size(); i++) {
-				                if (menu.get(i).getPrice() == price) {
-				                    menu.get(i).display();
-				                    found = 1;
-				                }
-				            }
-
-				            if (found == 0) {
-				                System.out.println("No items found at price $" + price + "!");
-				            }
-				        }
-				        break;
-				        
-				   default :
-					   System.out.println("Invalid Choice!");
-					   break;
-                      
-				  }
-
-					  
-				  case 3 ://Buy Items
-					  break;
-					  
-				  case 4 ://Nutritional Information
-					  break;
-					  
-				  case 5://Generate Receipt
-					  break;
-					  
-				  case 6://Sort Menu
-					  break;
-					  
-				  case 7://Exit
-					  System.out.println("Thank you for visiting!");
-					  break;
-					  
-				  default:
-					  System.out.println("Invalid Choice!");
-	              
-
-			  }
-
-			  
-
-			  System.out.println("Do you wish to continue? (1 for Yes, 2 for No)");
-
-			  y = scan.nextInt();
-
-	        } while (y == 1);
-
-		  
-
-		  System.out.println("Thank you for visiting!");
-
-		  scan.close();
-
-		  
-
-	}
-
-	
-	}
 
 
 
