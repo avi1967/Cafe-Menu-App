@@ -80,3 +80,4 @@ Daily Specials or Discounts
 
 - Randomly apply discounts during runtime.
 
+(Created as a first year group mini project.)
