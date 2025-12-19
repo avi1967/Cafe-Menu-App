@@ -13,20 +13,6 @@ A simple Java console application simulating a cafe menu. It allows users to vie
 - Generating a receipt
 - Sorting the menu
 
----
-
-## 💻 How to Run
-
-1. Make sure you have **Java 8 or higher** installed.
-2. Compile the program:
-
-   ```bash
-   javac cafe.java
-3. Run the program:
-   ```bash
-   javac cafe
-
----
 
 ## 📚 Concepts Used
 Abstract Classes
@@ -79,5 +65,5 @@ Daily Specials or Discounts
 - Mark some items as “Today's Special” with a lower price.
 
 - Randomly apply discounts during runtime.
-
-(Created as a first year group mini project.)
+---
+Created as a first year group mini project.
